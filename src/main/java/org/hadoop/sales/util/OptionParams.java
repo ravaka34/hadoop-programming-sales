@@ -1,4 +1,4 @@
-package org.hadoop.sales;
+package org.hadoop.sales.util;
 
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;

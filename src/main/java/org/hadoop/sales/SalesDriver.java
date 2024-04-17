@@ -2,13 +2,15 @@ package org.hadoop.sales;
 
 import java.io.IOException;
 
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
+import org.hadoop.sales.util.HashOptionParams;
+import org.hadoop.sales.util.OptionParams;
+import org.hadoop.sales.util.ProfitOptionParams;
 
 /**
  * Hello world!
@@ -28,10 +30,14 @@ public final class SalesDriver {
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
         Configuration conf = new Configuration();
         String[] ourArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
-        Job job = Job.getInstance(conf, "Sales count");
         String option = ourArgs[0];
         OptionParams optionParams = HashOptionParams.getParam(option);
+        if(option.equals("-pr") || option.equals("-pc") || option.equals("-pi")){
+            conf.set("groupBy", ((ProfitOptionParams) optionParams).getGroupBy());
+        }
 
+        Job job = Job.getInstance(conf, "Sales count");
+    
         System.out.println("Calculate "+optionParams.getDescription());
 
         // Define the driver, mapper and reducer
