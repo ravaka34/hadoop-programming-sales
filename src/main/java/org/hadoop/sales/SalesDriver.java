@@ -9,6 +9,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 import org.hadoop.sales.util.HashOptionParams;
+import org.hadoop.sales.util.ItemOptionParams;
 import org.hadoop.sales.util.OptionParams;
 import org.hadoop.sales.util.ProfitOptionParams;
 
@@ -32,9 +33,16 @@ public final class SalesDriver {
         String[] ourArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
         String option = ourArgs[0];
         OptionParams optionParams = HashOptionParams.getParam(option);
+
         if(option.equals("-pr") || option.equals("-pc") || option.equals("-pi")){
             conf.set("groupBy", ((ProfitOptionParams) optionParams).getGroupBy());
         }
+
+        if(option.equals("-qion") || option.equals("-qioff")){
+            conf.set("getOnline", ((ItemOptionParams) optionParams).getIsOnline());
+        }
+
+        
 
         Job job = Job.getInstance(conf, "Sales count");
     
