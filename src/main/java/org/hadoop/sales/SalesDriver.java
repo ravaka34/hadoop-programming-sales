@@ -24,6 +24,7 @@ public final class SalesDriver {
      * @throws InterruptedException 
      * @throws ClassNotFoundException 
      */
+    //-pr Profit Per region
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
         Configuration conf = new Configuration();
         String[] ourArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
@@ -32,7 +33,7 @@ public final class SalesDriver {
         OptionParams optionParams = HashOptionParams.getParam(option);
 
         System.out.println("Calculate "+optionParams.getDescription());
-        
+
         // Define the driver, mapper and reducer
         job.setJarByClass(SalesDriver.class);
         // Total profit per region
